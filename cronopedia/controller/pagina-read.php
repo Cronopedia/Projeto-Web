@@ -6,3 +6,5 @@ $ArrayPagina = $obj->read($_GET["id"]);
 $ArrayPagina = json_encode($ArrayPagina);
 
 echo ($ArrayPagina);
+
+// localhost/cronopedia/controller/pagina-read-all.php?id=6325

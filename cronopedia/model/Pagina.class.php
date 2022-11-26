@@ -159,4 +159,16 @@ class Pagina
 
         return $resultado;
     }
+
+    public function delete($id)
+    {
+        $con = new Conexao();
+        $conexao = $con->getInstance();
+
+        $stmt = $conexao->prepare("DELETE FROM pagina WHERE 
+                                            id = :id");
+        $stmt->bindParam(':id', $id);
+
+        $stmt->execute();
+    }
 }

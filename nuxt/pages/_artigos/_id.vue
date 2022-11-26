@@ -55,7 +55,9 @@ export default {
   methods: {},
 
   async mounted() {
-    const response = await this.$axios.get("/paginas/id/" + this.ID);
+    const response = await this.$axios.get(
+      "/cronopedia/controller/pagina-read.php?id=" + this.ID
+    );
     this.article = response.data;
   },
 };

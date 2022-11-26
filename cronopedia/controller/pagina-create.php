@@ -13,3 +13,17 @@ $relevancia = $data["relevancia"];
 
 $obj = new Pagina($autor, $titulo, $resumo, $conteudo, $dataPub, $relevancia);
 $obj->create();
+
+// localhost/cronopedia/controller/pagina-create.php?
+
+// BODY:
+// {
+//     "data": {
+//       "autor": "teste",
+//       "titulo": "teste",
+//       "resumo": "teste",
+//       "conteudo": "teste",
+//       "dataPub": "2000-01-01",
+//       "relevancia": "0.0"
+//     }
+//  }

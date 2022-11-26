@@ -6,3 +6,5 @@ $ArrayPaginas = $obj->readAll();
 $ArrayPaginas = json_encode($ArrayPaginas);
 
 echo ($ArrayPaginas);
+
+// localhost/cronopedia/controller/pagina-read-all.php?

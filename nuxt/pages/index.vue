@@ -24,7 +24,7 @@
               placeholder="Descubra algo novo..."
               autocomplete="off"
             />
-            <button type="submit" id="search-submit"> Pesquisar </button>
+            <button type="submit" id="search-submit">Pesquisar</button>
           </form>
         </section>
 
@@ -45,7 +45,7 @@
         <section class="article day">
           <h2>Explorar Artigos</h2>
         </section>
-        <section :key="card" v-for="card in response">  
+        <section :key="card" v-for="card in response">
           <CardJava
             v-bind:title="`${card.titulo}`"
             v-bind:resumo="`${card.resumo}`"
@@ -64,16 +64,14 @@
 @import "~/static/css/layout.css";
 @import "~/static/css/menu.css";
 @import "~/static/css/elements.css";
-@import '~/static/css/input.css'
+@import "~/static/css/input.css";
 </style>
 
 <script>
 export default {
   name: "IndexPage",
-  data(){
-    return{
-      
-    };
+  data() {
+    return {};
   },
   head() {
     return {
@@ -81,11 +79,12 @@ export default {
     };
   },
 
-  methods: {
-  },
+  methods: {},
 
   async asyncData({ $axios }) {
-    const response = await $axios.$get("/paginas");
+    const response = await $axios.$get(
+      "/cronopedia/controller/pagina-read-all.php"
+    );
     const random = await $axios.$get("/paginas/daily");
     return { response, random };
   },
