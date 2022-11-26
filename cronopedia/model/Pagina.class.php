@@ -3,7 +3,7 @@ require_once "Conexao.class.php";
 
 class Pagina
 {
-    private static $ID = 100;
+    private $Id;
     private $autor;
     private $titulo;
     private $resumo;
@@ -12,14 +12,19 @@ class Pagina
     private $relevancia;
 
     public function __construct($autor, $titulo, $resumo, $conteudo, $dataPub, $relevancia)
-    {
-        $ID = +1;
+    {;
+        $this->Id = self::getRandom();
         $this->autor = $autor;
         $this->titulo = $titulo;
         $this->resumo = $resumo;
         $this->dataPub = $dataPub;
         $this->conteudo = $conteudo;
         $this->relevancia = $relevancia;
+    }
+
+    public static function getRandom()
+    {
+        return rand(0, 10000);
     }
 
     // Setters
@@ -99,16 +104,16 @@ class Pagina
         $conexao = $con->getInstance();
 
         // Preparando a Query
-        $stmt = $conexao->prepare("INSERT INTO `pagina`(`id`, `autor`, `conteudo`, `data_publicacao`, `relevancia`, `resumo`, `titulo`) VALUES (':id',':autor',':conteudo',':data',':relev',':resumo',':titulo')");
+        $stmt = $conexao->prepare("INSERT INTO `pagina`(`id`, `autor`, `conteudo`, `data_publicacao`, `relevancia`, `resumo`, `titulo`) VALUES (:id ,:autor, :conteudo, :dataPub, :relev, :resumo, :titulo)");
 
         // Binding
-        $stmt->bindParam(':id', $this->getID());
-        $stmt->bindParam(':autor', $this->getAutor());
-        $stmt->bindParam(':conteudo', $this->getConteudo());
-        $stmt->bindParam(':data', $this->getDataPub());
-        $stmt->bindParam(':relev', $this->getRelevancia());
-        $stmt->bindParam(':resumo', $this->getResumo());
-        $stmt->bindParam(':titulo', $this->getTitulo());
+        $stmt->bindParam(':id', $this->Id);
+        $stmt->bindParam(':autor', $this->autor);
+        $stmt->bindParam(':conteudo', $this->conteudo);
+        $stmt->bindParam(':dataPub', $this->dataPub);
+        $stmt->bindParam(':relev', $this->relevancia);
+        $stmt->bindParam(':resumo', $this->resumo);
+        $stmt->bindParam(':titulo', $this->titulo);
 
         // Executanco o SQL
         $resultado = $stmt->execute();
@@ -117,6 +122,6 @@ class Pagina
             header("Status: 406 Not Acceptable");;
         }
 
-        header("Status: 201 Created");
+        // header("Status: 201 Created");
     }
 }
