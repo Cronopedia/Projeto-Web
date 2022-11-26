@@ -11,7 +11,7 @@ class Pagina
     private $conteudo;
     private $relevancia;
 
-    public function __construct($autor, $titulo, $resumo, $conteudo, $dataPub, $relevancia)
+    public function __construct($autor = "", $titulo = "", $resumo = "", $conteudo = "", $dataPub = "", $relevancia = "")
     {;
         $this->Id = self::getRandom();
         $this->autor = $autor;
@@ -123,5 +123,22 @@ class Pagina
         }
 
         // header("Status: 201 Created");
+    }
+
+    public function readAll()
+    {
+        // Estabelecendo a conexão
+        $con = new Conexao();
+        $conexao = $con->getInstance();
+
+
+        // Preparando a Query
+        $stmt = $conexao->prepare("SELECT * FROM pagina");
+
+        $stmt->execute();
+
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultado;
     }
 }
