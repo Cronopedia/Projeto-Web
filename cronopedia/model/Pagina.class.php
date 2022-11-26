@@ -141,4 +141,22 @@ class Pagina
 
         return $resultado;
     }
+
+    public function read($id)
+    {
+        // Estabelecendo a conexão
+        $con = new Conexao();
+        $conexao = $con->getInstance();
+
+
+        // Preparando a Query
+        $stmt = $conexao->prepare("SELECT * FROM pagina WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+
+        $stmt->execute();
+
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultado;
+    }
 }
