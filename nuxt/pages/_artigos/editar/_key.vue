@@ -40,7 +40,9 @@ export default {
     };
   },
   async asyncData({ params, $axios }) {
-    const article = await $axios.$get("/paginas/id/" + params.key);
+    const article = await $axios.$get(
+      "/cronopedia/controller/pagina-read.php?id=" + params.key
+    );
     return { article };
   },
   methods: {
@@ -49,8 +51,8 @@ export default {
         "div.tox-sidebar-wrap div.tox-edit-area iframe"
       ).contentDocument;
       var mudanca = textarea.querySelector("body").innerHTML;
-      const a = await this.$axios.$put(
-        "/paginas/atualizar/3/" + this.article.id,
+      const a = await this.$axios.$post(
+        "/cronopedia/controller/pagina-update.php",
         {
           mudanca,
         }
@@ -58,7 +60,7 @@ export default {
     },
     async deletar() {
       await this.$axios
-        .$delete("/paginas/deletar/" + this.article.id)
+        .$post("/cronopedia/controller/pagina-delete.php?id=" + this.article.id)
         .then(() => {
           this.$router.push("/");
         });

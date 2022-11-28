@@ -39,13 +39,15 @@ export default {
       var titulo = document.querySelector("div #titulo").value;
 
       const a = await this.$axios
-        .$post("/paginas/add/", {
-          titulo: titulo,
-          autor: "Desconhecido",
-          resumo: "Testando a aplicação!",
-          conteudo: conteudo,
-          assuntos: [titulo],
-          url: "http://jncseguranca.com.br/wp-content/uploads/2016/07/img-teste-300x300.jpg",
+        .$post("/cronopedia/controller/pagina-create.php", {
+          data: {
+            autor: "Anônimo",
+            titulo: titulo,
+            resumo: conteudo,
+            conteudo: conteudo,
+            dataPub: "2000-01-01",
+            relevancia: "0.0",
+          },
         })
         .then(() => {
           alert("Criado!");

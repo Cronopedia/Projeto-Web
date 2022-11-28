@@ -85,8 +85,7 @@ export default {
     const response = await $axios.$get(
       "/cronopedia/controller/pagina-read-all.php"
     );
-    const random = await $axios.$get("/paginas/daily");
-    return { response, random };
+    return { response };
   },
 
   components: { TopBar, MobileNav, PrimaryMenu, CardJava },
