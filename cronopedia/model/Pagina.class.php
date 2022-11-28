@@ -11,9 +11,10 @@ class Pagina
     private $conteudo;
     private $relevancia;
 
-    public function __construct($autor = "", $titulo = "", $resumo = "", $conteudo = "", $dataPub = "", $relevancia = "")
-    {;
-        $this->Id = self::getRandom();
+    public function __construct($id = "", $autor = "", $titulo = "", $resumo = "", $conteudo = "", $dataPub = "", $relevancia = "")
+    {
+        // POG (PROGRAMAÇÃO ORIENTADA A GAMBIARRA) para evitar mudar o Id no caso de atualizações
+        $this->Id = ($id = "") ? $id : self::getRandom();
         $this->autor = $autor;
         $this->titulo = $titulo;
         $this->resumo = $resumo;
@@ -115,6 +116,8 @@ class Pagina
         $stmt->bindParam(':resumo', $this->resumo);
         $stmt->bindParam(':titulo', $this->titulo);
 
+        echo $stmt->queryString;
+
         // Executanco o SQL
         $resultado = $stmt->execute();
 
@@ -209,14 +212,13 @@ class Pagina
 
         // Preparando a Query
         $stmt = $conexao->prepare("UPDATE `pagina` SET
-        `id` = id,
-        `autor` = ':autor',
-        `conteudo` = ':conteudo',
-        `data_publicacao` = ':dataPub',
-        `relevancia` = ':relev',
-        `resumo` = ':resumo',
-        `titulo` = ':titulo'
-        WHERE id = :id");
+        `autor` = :autor,
+        `conteudo` = :conteudo,
+        `data_publicacao` = :dataPub,
+        `relevancia` = :relev,
+        `resumo` = :resumo,
+        `titulo` = :titulo
+        WHERE `id` = :id");
 
         // Binding
         $stmt->bindParam(':id', $this->Id);
@@ -226,6 +228,8 @@ class Pagina
         $stmt->bindParam(':relev', $this->relevancia);
         $stmt->bindParam(':resumo', $this->resumo);
         $stmt->bindParam(':titulo', $this->titulo);
+
+        echo $stmt->queryString;
 
         // Executanco o SQL
         $resultado = $stmt->execute();
